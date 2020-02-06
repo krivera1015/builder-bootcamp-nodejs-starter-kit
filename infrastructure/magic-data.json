@@ -1,15 +1,62 @@
-{
-    "magicid": 100,
-    "magic_name": "magic1",
-    "experience_required": 100,
-    "magic_items": [
-        {
-            "item_id": 10,
-            "item_count": 5
-        },
-        {
-            "item_id": 30,
-            "item_count": 15
-        }
-    ]
-}
+[
+    {
+        "magicid": 104,
+        "magic_name": "magic5",
+        "experience_required": 104,
+        "magic_items": [
+            {
+                "item_id": 19,
+                "item_count": 4
+            },
+            {
+                "item_id": 25,
+                "item_count": 10
+            }
+        ]
+    },
+    {
+        "magicid": 101,
+        "magic_name": "magic2",
+        "experience_required": 101,
+        "magic_items": [
+            {
+                "item_id": 11,
+                "item_count": 5
+            },
+            {
+                "item_id": 15,
+                "item_count": 10
+            }
+        ]
+    },
+    {
+        "magicid": 102,
+        "magic_name": "magic3",
+        "experience_required": 102,
+        "magic_items": [
+            {
+                "item_id": 20,
+                "item_count": 10
+            },
+            {
+                "item_id": 25,
+                "item_count": 5
+            }
+        ]
+    },
+    {
+        "magicid": 103,
+        "magic_name": "magic4",
+        "experience_required": 103,
+        "magic_items": [
+            {
+                "item_id": 14,
+                "item_count": 7
+            },
+            {
+                "item_id": 3,
+                "item_count": 15
+            }
+        ]
+    }
+]

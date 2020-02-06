@@ -1,16 +1,82 @@
-{
-    "playerid": 1,
-    "username": "ansriv",
-    "experience": 100,
-    "items": [
-        {
-            "item_id": 10,
-            "item_count": 15
-        },
-        {
-            "item_id": 20,
-            "item_count": 5
-        }
-    ],
-    "player_magics": [100, 101]
-}
+[
+    {  
+        "playerid": 6,
+        "username": "ansriv",
+        "experience": 107,
+        "items": [
+            {
+                "item_id": 14,
+                "item_count": 12
+            },
+            {
+                "item_id": 10,
+                "item_count": 6
+            }
+        ],
+        "player_magics": [100, 101]
+    },
+    {  
+        "playerid": 2,
+        "username": "ansriv",
+        "experience": 101,
+        "items": [
+            {
+                "item_id": 20,
+                "item_count": 5
+            },
+            {
+                "item_id": 10,
+                "item_count": 8
+            }
+        ],
+        "player_magics": [102, 100]
+    },
+    {  
+        "playerid": 3,
+        "username": "ansriv",
+        "experience": 102,
+        "items": [
+            {
+                "item_id": 6,
+                "item_count": 1
+            },
+            {
+                "item_id": 9,
+                "item_count": 10
+            }
+        ],
+        "player_magics": [101, 103]
+    },
+    {  
+        "playerid": 4,
+        "username": "ansriv",
+        "experience": 103,
+        "items": [
+            {
+                "item_id": 30,
+                "item_count": 5
+            },
+            {
+                "item_id": 40,
+                "item_count": 6
+            }
+        ],
+        "player_magics": [104, 101]
+    },
+    {  
+        "playerid": 5,
+        "username": "ansriv",
+        "experience": 104,
+        "items": [
+            {
+                "item_id": 14,
+                "item_count": 15
+            },
+            {
+                "item_id": 20,
+                "item_count": 15
+            }
+        ],
+        "player_magics": [103, 101]
+    }
+]
