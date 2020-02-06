@@ -1,57 +1,47 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion : "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  builder-bootcamp-nodejs-starter-kit
-Globals:
-  Function:
-    Timeout: 3
+Description: megamatrix magic kaan
 
 Resources:
-
-  GetLambdaFunction:
+  GetMagicFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./dist
+      FunctionName: GetMagicFunction
+      Runtime: nodejs12.x
       Handler: get.handler
-      Runtime: nodejs8.10
+      CodeUri: dist/
       Events:
-        GetData:
+        GetMagicApi:
           Type: Api
           Properties:
-            Path: /data/{data}
-            Method: GET
+            Path: /magic/{playerid}
+            Method: get
       Policies:
-        - DynamoDBReadPolicy:
-            TableName: 'data-table'
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+          - Action:
+            - "dynamodb:BatchGetItem"
+            - "dynamodb:ConditionCheckItem"
+            - "dynamodb:Scan"
+            - "dynamodb:Query"
+            - "dynamodb:GetItem"
+            - "dynamodb:GetRecords"
+            Effect: Allow
+            Resource: 
+              - "arn:aws:dynamodb:us-east-1:904691766531:table/player"
+              - "arn:aws:dynamodb:us-east-1:904691766531:table/magic"
+          Version: '2012-10-17'
 
-  PostLambdaFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./dist
-      Handler: post.handler
-      Runtime: nodejs8.10
-      Events:
-        PostData:
-          Type: Api
-          Properties:
-            Path: /data
-            Method: POST
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: 'data-table'
-
-  DataTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        -
-          AttributeName: "data"
-          AttributeType: "S"
-      KeySchema:
-        -
-          AttributeName: "data"
-          KeyType: "HASH"
-      ProvisionedThroughput:
-        ReadCapacityUnits: "5"
-        WriteCapacityUnits: "5"
-      TableName: "data-table"
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  GetMagicApi:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/magic/"
+  GetMagicFunction:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt GetMagicFunction.Arn
+  GetMagicFunctionRole:
+    Description: "Implicit IAM Role created for GetMagicFunction"
+    Value: !GetAtt GetMagicFunctionRole.Arn

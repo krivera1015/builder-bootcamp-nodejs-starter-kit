@@ -131,3 +131,4 @@ dist
 infrastructure/packaged*.yaml
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows
+megamatrix-cfn.yaml

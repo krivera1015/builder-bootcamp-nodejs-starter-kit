@@ -13,7 +13,7 @@ Resources:
       AttributeDefinitions:
         - 
           AttributeName: !Join ['', [!Ref TableName, 'id']]
-          AttributeType: "S"
+          AttributeType: "N"
       KeySchema:
         -
           AttributeName: !Join ['', [!Ref TableName, 'id']]
