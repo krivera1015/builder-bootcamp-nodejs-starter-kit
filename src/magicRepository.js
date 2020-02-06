@@ -1,5 +1,6 @@
 //'use strict';
 const dataProvider = require('./datamanager');
+
 /****** (PARAMS) - Table Name  */
 var playerTablename = 'player';
 var magicTableName = 'magic';

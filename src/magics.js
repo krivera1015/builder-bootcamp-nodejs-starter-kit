@@ -34,8 +34,8 @@ async function canHave(playerid) {
         console.log('Got magic data', result.length);
     });
 
-    var magicList =  await generateAllowedMagicList(playerinfo, magicInfo);
-    magicList.forEach(m=> {
+    var magicList = await generateAllowedMagicList(playerinfo, magicInfo);
+    magicList.forEach(m => {
         console.log("Magic Id: " + m.magicid + " Magic Name: " + m.magicName);
     });
     return magicList;
@@ -60,17 +60,28 @@ async function generateAllowedMagicList(pInfo, mList) {
         mList.forEach(function (magic) {
             //console.log(playerInfo.experience, magic.experience_required);
             if (playerInfo.experience >= magic.experience_required) {
-                //console.log('Magic:', magic);
-                magic.magic_items.forEach(itemReqForMagic => {
+                var allMatches = false;
+
+                for (var i = 0; i < magic.magic_items.length; i++) {
+                    var itemReqForMagic = magic.magic_items[i];
+                    //magic.magic_items.forEach(itemReqForMagic => {
                     if (currentItemOfPlayer.item_id == itemReqForMagic.item_id &&
                         currentItemOfPlayer.item_count >= itemReqForMagic.item_count) {
-                        console.log('magic:', magic.magicid);
+                        allMatches = true;
+                    } else {
+                        allMatches = false;
+                        break;
+                        /////
+                    }
+
+                    if (allMatches) {
                         magicItem.magicid = magic.magicid;
                         magicItem.magicName = magic.magic_name;
 
                         magicList.push(magicItem);
                     }
-                });
+                }
+                //});
             }
         });
 
