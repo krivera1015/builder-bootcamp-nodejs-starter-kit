@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: dynamo backend for megamatrix-magic-kaan
+
+Parameters: 
+  TableName:
+    Description: Name of the DynamoDB table
+    Type: String
+
+Resources: 
+  playersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - 
+          AttributeName: !Join ['', [!Ref TableName, 'id']]
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: !Join ['', [!Ref TableName, 'id']]
+          KeyType: "HASH"
+      ProvisionedThroughput: 
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: !Ref TableName
+      Tags:
+        - Key: Team
+          Value: kaan
+
+Outputs:
+  TableArn:
+    Description: DynamoDB table ARN
+    Value: !GetAtt [playersTable, Arn]

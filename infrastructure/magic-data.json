@@ -1,0 +1,15 @@
+{
+    "magicid": 100,
+    "magic_name": "magic1",
+    "experience_required": 100,
+    "magic_items": [
+        {
+            "item_id": 10,
+            "item_count": 5
+        },
+        {
+            "item_id": 30,
+            "item_count": 15
+        }
+    ]
+}

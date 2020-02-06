@@ -1,0 +1,16 @@
+{
+    "playerid": 1,
+    "username": "ansriv",
+    "experience": 100,
+    "items": [
+        {
+            "item_id": 10,
+            "item_count": 15
+        },
+        {
+            "item_id": 20,
+            "item_count": 5
+        }
+    ],
+    "player_magics": [100, 101]
+}
