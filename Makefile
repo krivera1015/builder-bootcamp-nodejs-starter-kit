@@ -5,6 +5,7 @@ dev:
 
 build:
 	npm run build
+	cp src/*.js dist/
 
 test: build
 	npm run test
