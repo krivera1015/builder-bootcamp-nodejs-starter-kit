@@ -4,9 +4,9 @@ set -e
 set -u
 
 # Configuration
-CodeCommitRepoName=builder-bootcamp-nodejs-starter-kit
-StackName=bootcamp-starter-kit-infra
-BucketName=bootcamp-starter-kit-$USER
+CodeCommitRepoName=megamatrix-magic-kaan
+StackName=megamatrix-magic-kaan
+BucketName=megamatrix-magic-kaan-$USER
 
 # Package and deploy
 aws cloudformation package \
