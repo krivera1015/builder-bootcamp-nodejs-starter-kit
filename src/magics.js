@@ -21,22 +21,22 @@ var magicList = [];
 // };
 
 async function canHave(playerid) {
-    console.log('Starting data retrieval');
+    //console.log('Starting data retrieval');
     var playerinfo;
     await magicRepository.getPlayerInfo(playerid).then((result) => {
         playerinfo = result;
-        console.log('Got player data', result);
+        //console.log('Got player data', result);
     });
 
     var magicInfo;
     await magicRepository.getMagicList().then((result) => {
         magicInfo = result;
-        console.log('Got magic data', result.length);
+        //console.log('Got magic data', result.length);
     });
 
     var magicList = await generateAllowedMagicList(playerinfo, magicInfo);
     magicList.forEach(m => {
-        console.log("Magic Id: " + m.magicid + " Magic Name: " + m.magicName);
+        console.log("PlayerId: " + m.playerid + " Magic Id: " + m.magicid + " Magic Name: " + m.magicName);
     });
     return magicList;
 }
@@ -51,41 +51,59 @@ async function generateAllowedMagicList(pInfo, mList) {
         mList == 'undefined' || mList.length == 0) return;
 
     var playerInfo = pInfo.Item;
-    playerInfo.items.forEach(currentItemOfPlayer => {
+
+    for (var i = 0; i < mList.length; i++) {
+        var allItemsFound = false;
+        var magic = mList[i];
         var magicItem = {
+            playerid: 0,
             magicid: 0,
             magicName: ''
         };
 
-        mList.forEach(function (magic) {
-            //console.log(playerInfo.experience, magic.experience_required);
-            if (playerInfo.experience >= magic.experience_required) {
-                var allMatches = false;
+        if (playerInfo.experience < magic.experience_required) {
+            continue;
+        }
 
-                for (var i = 0; i < magic.magic_items.length; i++) {
-                    var itemReqForMagic = magic.magic_items[i];
-                    //magic.magic_items.forEach(itemReqForMagic => {
-                    if (currentItemOfPlayer.item_id == itemReqForMagic.item_id &&
-                        currentItemOfPlayer.item_count >= itemReqForMagic.item_count) {
-                        allMatches = true;
-                    } else {
-                        allMatches = false;
-                        break;
-                        /////
-                    }
+        var itemFound = false;
+        for (var k = 0; k < magic.magic_items.length; k++) {
+            var itemReqForMagic = magic.magic_items[k];
+            
+            for (var j = 0; j < playerInfo.items.length; j++) {
+                var currentItemOfPlayer = playerInfo.items[j];
+                itemFound = false;
 
-                    if (allMatches) {
-                        magicItem.magicid = magic.magicid;
-                        magicItem.magicName = magic.magic_name;
+                //magic.magic_items.forEach(itemReqForMagic => {
+                if (currentItemOfPlayer.item_id == itemReqForMagic.item_id &&
+                    currentItemOfPlayer.item_count >= itemReqForMagic.item_count) {
+                    console.log('Data values:', currentItemOfPlayer, itemReqForMagic);
+                    itemFound = true;
 
-                        magicList.push(magicItem);
-                    }
+                    magicItem.playerid = playerInfo.playerid;
+                    magicItem.magicid = magic.magicid;
+                    magicItem.magicName = magic.magic_name;
+                    break;
+                } else {
+                    itemFound = false;
+                    console.log('item not found');
                 }
                 //});
             }
         });
 
-    });
+            if (itemFound) {
+                console.log('item is found');
+                allItemsFound = true;
+            } else {
+                //console.log('item is not found');
+                //allItemsFound = false;
+            }
+        }
+        if (itemFound && allItemsFound) {
+            console.log('all items are found');
+            magicList.push(magicItem);
+        }
+    }
     return magicList;
 }
 

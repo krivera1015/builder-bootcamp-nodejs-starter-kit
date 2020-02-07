@@ -1,7 +1,5 @@
 import { DynamoDB } from 'aws-sdk'
-
-const ddb = new DynamoDB.DocumentClient()
-const ddb = new DynamoDB.DocumentClient()
+const magics = require('./magics');
 
 /**
  *
@@ -17,38 +15,31 @@ const ddb = new DynamoDB.DocumentClient()
  */
 
 export const handler = async (event: any = {}): Promise<any> => {
-    let response
-    try {
-      const params = {
-        TableName: 'data-table',
-        Key: {
-          data: event.pathParameters.data
-        }
-      }
+  let response;
+  try {
+      console.log(JSON.stringify(event.pathParameters));
 
-      const results = await ddb.get(params).promise()
-
-      if (!results || !results.Item) {
-        response = {
-          headers: {'Access-Control-Allow-Origin': '*'},
-          statusCode: 400,
-        }
+      const results = magics.canHave(event.pathParameters.playerid);
+      if (!results) {
+          response = {
+              headers: { 'Access-Control-Allow-Origin': '*' },
+              statusCode: 400,
+          }
       } else {
-        response = {
-          headers: {'Access-Control-Allow-Origin': '*'},
-          statusCode: 200,
-          body: JSON.stringify(results.Item),
-        }
+          response = {
+              headers: { 'Access-Control-Allow-Origin': '*' },
+              statusCode: 200,
+              body: JSON.stringify(results),
+          }
       }
-    } catch (err) {
+  } catch (err) {
       console.log(err)
       response = {
-        headers: {'Access-Control-Allow-Origin': '*'},
-        statusCode: 500,
+          headers: { 'Access-Control-Allow-Origin': '*' },
+          statusCode: 500,
       }
-    }
-
-    return response
+  }
+  return response
 }
 
 // export const handler = async (event: any = {}): Promise<any> => {

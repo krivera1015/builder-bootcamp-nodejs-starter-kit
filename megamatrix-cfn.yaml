@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: megamatrix magic kaan
+Resources:
+  GetMagicFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: GetMagicFunction
+      Runtime: nodejs12.x
+      Handler: get.handler
+      CodeUri: s3://megamatrix-magic-kaan-riveraws/test/38d20273b77782af8cc031ce449fbaca
+      Events:
+        GetMagicApi:
+          Type: Api
+          Properties:
+            Path: /magic/{playerid}
+            Method: get
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - Statement:
+        - Action:
+          - dynamodb:BatchGetItem
+          - dynamodb:ConditionCheckItem
+          - dynamodb:Scan
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:GetRecords
+          Effect: Allow
+          Resource:
+          - arn:aws:dynamodb:us-east-1:904691766531:table/player
+          - arn:aws:dynamodb:us-east-1:904691766531:table/magic
+        Version: '2012-10-17'
+Outputs:
+  GetMagicApi:
+    Description: API Gateway endpoint URL for Prod stage
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/magic/
+  GetMagicFunction:
+    Description: Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetMagicFunction
+      - Arn
+  GetMagicFunctionRole:
+    Description: Implicit IAM Role created for GetMagicFunction
+    Value:
+      Fn::GetAtt:
+      - GetMagicFunctionRole
+      - Arn
