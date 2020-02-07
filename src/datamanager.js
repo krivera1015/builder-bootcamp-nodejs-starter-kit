@@ -16,7 +16,7 @@ async function scanTable(query, tablename) {
   let lastEvaluatedKey = 'dummy'; // string must not be empty
   const itemsAll = [];
   while (lastEvaluatedKey) {
-    console.log('Fetching ' + tablename + ' data....');
+    //console.log('Fetching ' + tablename + ' data....');
     const data = await dynamoDBClient.scan(query).promise();
     itemsAll.push(...data.Items);
     lastEvaluatedKey = data.LastEvaluatedKey;

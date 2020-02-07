@@ -44,7 +44,7 @@ async function getPlayerInfo(playerid) {
     ExpressionAttributeNames: {
       "#playerid": "playerid",
       "#itemList": "items"
-    },
+    }
     // FilterExpression: "#playerid = :pId",
     // ExpressionAttributeValues: {
     //   ":pId": {

@@ -17,7 +17,7 @@ const magics = require('./magics');
 export const handler = async (event: any = {}): Promise<any> => {
   let response;
   try {
-      const results = magics.canHave(event.pathParameters.data);
+      const results = magics.canHave(event.pathParameters.playerid);
       if (!results) {
           response = {
               headers: { 'Access-Control-Allow-Origin': '*' },
